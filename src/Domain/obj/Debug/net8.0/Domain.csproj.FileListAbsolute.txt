@@ -1,0 +1,12 @@
+/home/joao-pedro/recomendaMusic/src/Domain/bin/Debug/net8.0/Domain.deps.json
+/home/joao-pedro/recomendaMusic/src/Domain/bin/Debug/net8.0/Domain.dll
+/home/joao-pedro/recomendaMusic/src/Domain/bin/Debug/net8.0/Domain.pdb
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.AssemblyInfoInputs.cache
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.AssemblyInfo.cs
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.csproj.CoreCompileInputs.cache
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.sourcelink.json
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.dll
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/refint/Domain.dll
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/Domain.pdb
+/home/joao-pedro/recomendaMusic/src/Domain/obj/Debug/net8.0/ref/Domain.dll
