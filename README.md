@@ -58,7 +58,7 @@ MusicRecommendationEngine/
 
 ### 📌 Curto Prazo
 
-* [ ] Criar **DTOs** para separar domínio e apresentação
+* [X] Criar **DTOs** para separar domínio e apresentação
 * [ ] Implementar mais estratégias de recomendação:
 
   * `RecentTracksRecommendationStrategy`
