@@ -64,11 +64,11 @@ recomendaMusic/
 ### 📌 Curto Prazo
 
 * [X] Criar **DTOs** para separar domínio e apresentação
-* [] Implementar mais estratégias de recomendação:
+* [X] Implementar mais estratégias de recomendação:
 
   * `RecentTracksRecommendationStrategy`
   * `PopularTracksRecommendationStrategy`
-* [] Implementar **IPlaylistRepository** com `InMemoryPlaylistRepository` para simulação
+* [X] Implementar **IPlaylistRepository** com `InMemoryPlaylistRepository` para simulação
 
 ### 📌 Médio Prazo
 
