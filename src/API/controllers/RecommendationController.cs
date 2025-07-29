@@ -23,7 +23,7 @@ namespace API.Controllers
 
             foreach (var item in playlistDto.Items)
             {
-                var track = new Track(item.Id, item.Title, item.Artist, item.Duration);
+                var track = new Track(item.Id, item.Title, item.Artist, item.Genre);
                 playlist.AddItem(track);
             }
 
@@ -33,7 +33,7 @@ namespace API.Controllers
                 Id = x.Id,
                 Title = x.Title,
                 Artist = x.Artist,
-                Duration = x.Duration
+                Genre = x.Genre
             }).ToList();
 
             return Ok(recommendationDtos);

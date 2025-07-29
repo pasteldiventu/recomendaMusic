@@ -14,19 +14,24 @@ Estruturado seguindo o padrão **Clean Architecture**, o projeto promove separa�
 ## 📂 Estrutura Atual do Projeto
 
 ```
-MusicRecommendationEngine/
+recomendaMusic/
 │
-├── API/ (Camada de Apresentação)
-│   └── Controllers/RecommendationController.cs
-│   └── Program.cs
-│
-├── Domain/ (Regra de Negócio)
-│   ├── Entities/ (IMediaItem, Track, Playlist)
-│   ├── Interfaces/ (IRecommendationEngine, IRecommendationStrategy)
-│   ├── Services/ (RecommendationEngine.cs)
-│   └── Patterns/Strategy/ (GenreRecommendationStrategy.cs)
-│
-└── Infrastructure/ (Infraestrutura, Repositórios) — *vazio por enquanto*
+├── src/
+│   ├── api/ (Camada de Apresentação)
+│   │   ├── controllers/RecommendationController.cs
+│   │   ├── DTOs/ (PlaylistDto.cs, TrackDto.cs)
+│   │   └── Program.cs
+│   │
+│   ├── domain/ (Regra de Negócio)
+│   │   ├── Entities/ (IMediaItem.cs, Track.cs, Playlist.cs)
+│   │   ├── Interfaces/ (IRecommendationEngine.cs, IRecommendationStrategy.cs, IPlaylistRepository.cs)
+│   │   └── Patterns/Strategy/
+│   │       ├── GenreRecommendationStrategy.cs
+│   │       ├── PopularTracksRecommendationStrategy.cs
+│   │       └── RecentTracksRecommendationStrategy.cs
+│   │
+│   └── infrastructure/ (Infraestrutura, Repositórios)
+│       └── Repositories/InMemoryPlaylistRepository.cs
 ```
 
 ---
@@ -38,7 +43,7 @@ MusicRecommendationEngine/
   * `IMediaItem`, `Track`, `Playlist`
 * **Interfaces:**
 
-  * `IRecommendationEngine`, `IRecommendationStrategy`
+  * `IRecommendationEngine`, `IRecommendationStrategy`,`IPlaylistRepository`
 * **Services:**
 
   * `RecommendationEngine` com injeção de estratégia de recomendação
@@ -59,23 +64,22 @@ MusicRecommendationEngine/
 ### 📌 Curto Prazo
 
 * [X] Criar **DTOs** para separar domínio e apresentação
-* [X] Implementar mais estratégias de recomendação:
+* [] Implementar mais estratégias de recomendação:
 
   * `RecentTracksRecommendationStrategy`
   * `PopularTracksRecommendationStrategy`
-* [X] Implementar **IPlaylistRepository** com `InMemoryPlaylistRepository` para simulação
+* [] Implementar **IPlaylistRepository** com `InMemoryPlaylistRepository` para simulação
 
 ### 📌 Médio Prazo
 
 * [ ] Adicionar camada **Infrastructure** com persistência usando Entity Framework + SQLite
 * [ ] Criar projeto de **Testes Unitários** para `Domain.Tests` e `API.Tests`
+* [ ] Implementar o **Factory Pattern** para seleção dinâmica de estratégias via API.
 
 ### 📌 Longo Prazo
 
 * [ ] Aplicar **Observer Pattern** para eventos (notificação em atualizações)
-* [ ] Aplicar **Factory Pattern** para criação de músicas/playlists
 * [ ] Aplicar **Singleton Pattern** para cache ou log global
-
 ---
 
 ## 🎁 Produto Final Esperado
@@ -96,8 +100,8 @@ MusicRecommendationEngine/
 * ASP.NET Core (Web API)
 * C# 12
 * Dependency Injection nativa
-* Clean Architecture
-* Design Patterns: Strategy (implementado), Observer, Factory, Singleton (planejados)
+* Clean Architecture(simplificada)
+* Design Patterns: Strategy (com 3 implementações), Repository (com simulação em memória), Factory, Observer, Singleton (planejados).
 * Testes: xUnit (planejado)
 * Entity Framework Core (planejado)
 
@@ -105,5 +109,6 @@ MusicRecommendationEngine/
 
 ## ✅ Status Atual
 
-> ✅ API funcional com recomendação baseada em estratégia única
-> ✅ Pronto para expansão com novas estratégias e camadas
+>✅ API funcional com 3 estratégias de recomendação intercambiáveis.
+>✅ Repositório em memória implementado para simulação de dados.
+>✅ Estrutura pronta para evoluir com persistência real e testes.

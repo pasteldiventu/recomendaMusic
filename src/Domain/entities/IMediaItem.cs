@@ -5,6 +5,6 @@ namespace Domain.Entities
         Guid Id { get; }
         string Title { get; }
         string Artist { get; }
-        TimeSpan Duration { get; }
+        string Genre { get; }
     }
 }

@@ -9,8 +9,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IRecommendationStrategy, GenreRecommendationStrategy>();
+builder.Services.AddSingleton<IPlaylistRepository, InMemoryPlaylistRepository>(); 
 builder.Services.AddScoped<IRecommendationEngine, RecommendationEngine>();
+
+
+// ESCOLHA APENAS UMA ESTRATÉGIA e comente ou apague as outras:
+
+// Opção 1: Usar a estratégia por gênero
+// builder.Services.AddScoped<IRecommendationStrategy, GenreRecommendationStrategy>();
+
+// Opção 2: Usar a estratégia de populares
+// builder.Services.AddScoped<IRecommendationStrategy, PopularTracksRecommendationStrategy>();
+
+// Opção 3: Usar a estratégia de recentes (ESTA ESTÁ ATIVA)
+builder.Services.AddScoped<IRecommendationStrategy, RecentTracksRecommendationStrategy>();
 
 
 var app = builder.Build();
