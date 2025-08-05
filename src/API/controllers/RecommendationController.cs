@@ -1,7 +1,9 @@
-using Domain.Entities;
 using API.DTOs;
-using Domain.Services;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Domain.Enums;
+using Domain.Patterns.Factory; 
 
 namespace API.Controllers
 {
@@ -9,15 +11,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class RecommendationController : ControllerBase
     {
-        private readonly IRecommendationEngine _recommendationEngine;
+        private readonly RecommendationStrategyFactory _strategyFactory;
+        private readonly IPlaylistRepository _playlistRepository;
 
-        public RecommendationController(IRecommendationEngine recommendationEngine)
+        public RecommendationController(RecommendationStrategyFactory strategyFactory, IPlaylistRepository playlistRepository)
         {
-            _recommendationEngine = recommendationEngine;
+            _strategyFactory = strategyFactory;
+            _playlistRepository = playlistRepository;
         }
 
         [HttpPost("recommend")]
-        public ActionResult<List<TrackDto>> Recommend([FromBody] PlaylistDto playlistDto)
+        public async Task <ActionResult<List<TrackDto>>> Recommend([FromBody] PlaylistDto playlistDto, [FromQuery] StrategyType strategyType)
         {
             var playlist = new Playlist(playlistDto.Id, playlistDto.Name);
 
@@ -26,8 +30,12 @@ namespace API.Controllers
                 var track = new Track(item.Id, item.Title, item.Artist, item.Genre);
                 playlist.AddItem(track);
             }
+            
+            await _playlistRepository.AddAsync(playlist);
 
-            var recommendations = _recommendationEngine.Recommend(playlist);
+            var strategy = _strategyFactory.CreateStrategy(strategyType);
+            var recommendations = strategy.Recommend(playlist);
+
             var recommendationDtos = recommendations.Select(x => new TrackDto
             {
                 Id = x.Id,

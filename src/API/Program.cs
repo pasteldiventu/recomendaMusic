@@ -2,28 +2,24 @@
 using Domain.Interfaces;
 using Domain.Services;
 using Domain.Patterns.Strategy;
+using Infrastructure.Repositories;
+using Domain.Patterns.Factory;
+using Domain.Enums; 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => {
+    options.AddServer(new() { Url = "http://localhost:5038" });
+    options.UseInlineDefinitionsForEnums();
+});
 
 builder.Services.AddSingleton<IPlaylistRepository, InMemoryPlaylistRepository>(); 
-builder.Services.AddScoped<IRecommendationEngine, RecommendationEngine>();
 
-
-// ESCOLHA APENAS UMA ESTRATÉGIA e comente ou apague as outras:
-
-// Opção 1: Usar a estratégia por gênero
-// builder.Services.AddScoped<IRecommendationStrategy, GenreRecommendationStrategy>();
-
-// Opção 2: Usar a estratégia de populares
-// builder.Services.AddScoped<IRecommendationStrategy, PopularTracksRecommendationStrategy>();
-
-// Opção 3: Usar a estratégia de recentes (ESTA ESTÁ ATIVA)
-builder.Services.AddScoped<IRecommendationStrategy, RecentTracksRecommendationStrategy>();
-
+//factory, pra escolher a estratégia
+builder.Services.AddScoped<RecommendationStrategyFactory>();
 
 var app = builder.Build();
 

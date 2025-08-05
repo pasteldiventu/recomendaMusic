@@ -10,7 +10,8 @@
         "dependencies": {
           "Domain": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "8.0.17",
-          "Swashbuckle.AspNetCore": "6.6.2"
+          "Swashbuckle.AspNetCore": "6.6.2",
+          "infrastructure": "1.0.0"
         },
         "runtime": {
           "api.dll": {}
@@ -78,6 +79,14 @@
         "runtime": {
           "Domain.dll": {}
         }
+      },
+      "infrastructure/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0"
+        },
+        "runtime": {
+          "infrastructure.dll": {}
+        }
       }
     }
   },
@@ -137,6 +146,11 @@
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
     },
     "Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
