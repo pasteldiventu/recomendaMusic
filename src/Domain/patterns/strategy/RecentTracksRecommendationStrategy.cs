@@ -3,27 +3,28 @@ using Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-public class RecentTracksRecommendationStrategy : IRecommendationStrategy
+namespace Domain.Patterns.Strategy
 {
-    private readonly IPlaylistRepository _playlistRepository;
-
-    public RecentTracksRecommendationStrategy(IPlaylistRepository playlistRepository)
+    public class RecentTracksRecommendationStrategy : IRecommendationStrategy
     {
-        _playlistRepository = playlistRepository;
-    }
+        private readonly IPlaylistRepository _playlistRepository;
 
-    public List<IMediaItem> Recommend(Playlist contextPlaylist)
-    {
-        var allPlaylists = _playlistRepository.GetAllAsync().Result;
+        public RecentTracksRecommendationStrategy(IPlaylistRepository playlistRepository)
+        {
+            _playlistRepository = playlistRepository;
+        }
 
-        var recentTracksQuery = allPlaylists
-            .SelectMany(p => p.Items) // Pega todos os itens de todas as playlists
-            .OfType<Track>()         
-            .Reverse()               // Inverte a lista. Os últimos adicionados agora estão no começo.
-            .DistinctBy(track => track.Id) // Pega apenas a ocorrência mais "recente" de cada música
-            .Where(track => !contextPlaylist.Items.OfType<Track>().Any(t => t.Id == track.Id)) 
-            .Take(5); 
+        public List<IMediaItem> Recommend(Playlist contextPlaylist)
+        {
+            var recentTracksQuery = _playlistRepository.GetAllAsync().Result
+                .SelectMany(p => p.Items)
+                .OfType<Track>()
+                .Reverse()
+                .DistinctBy(track => track.Id)
+                .Where(track => !contextPlaylist.Items.OfType<Track>().Any(t => t.Id == track.Id))
+                .Take(5);
 
-        return recentTracksQuery.Cast<IMediaItem>().ToList();
+            return recentTracksQuery.Cast<IMediaItem>().ToList();
+        }
     }
 }

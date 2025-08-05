@@ -1,33 +1,34 @@
 using Domain.Entities;
 using Domain.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
-public class PopularTracksRecommendationStrategy : IRecommendationStrategy
+namespace Domain.Patterns.Strategy
 {
-    private readonly IPlaylistRepository _playlistRepository;
-    public PopularTracksRecommendationStrategy(IPlaylistRepository playlistRepository)
+    public class PopularTracksRecommendationStrategy : IRecommendationStrategy
     {
-        _playlistRepository = playlistRepository;
-    }
+        private readonly IPlaylistRepository _playlistRepository;
 
-    public List<IMediaItem> Recommend(Playlist contextPlaylist)
-    { 
-        // Passo 2: Usa o repositório para buscar todas as playlists "salvas".
-        // O .Result aqui é um atalho, pois sabemos que a operação em memória é síncrona.
-        var allPlaylists = _playlistRepository.GetAllAsync().Result;
+        public PopularTracksRecommendationStrategy(IPlaylistRepository playlistRepository)
+        {
+            _playlistRepository = playlistRepository;
+        }
 
-        var allTracks = allPlaylists
-            .SelectMany(p => p.Items) 
-            .OfType<Track>();
+        public List<IMediaItem> Recommend(Playlist contextPlaylist)
+        {
+            var allTracks = _playlistRepository.GetAllAsync().Result
+                .SelectMany(p => p.Items)
+                .OfType<Track>();
 
-        var popularTracks = allTracks
-            .GroupBy(track => track.Id)
-            .OrderByDescending(group => group.Count()) // Ordena pelos mais populares (maior contagem)
-            .Select(group => group.First()) // Pega um representante de cada grupo
-            
-            .Where(track => !contextPlaylist.Items.OfType<Track>().Any(t => t.Id == track.Id)) 
-            .Take(5) // Pega as 5 mais populares
-            .ToList();
+            var popularTracks = allTracks
+                .GroupBy(track => track.Id)
+                .OrderByDescending(group => group.Count())
+                .Select(group => group.First())
+                .Where(track => !contextPlaylist.Items.OfType<Track>().Any(t => t.Id == track.Id))
+                .Take(5)
+                .ToList();
 
-        return popularTracks.Cast<IMediaItem>().ToList();
+            return popularTracks.Cast<IMediaItem>().ToList();
+        }
     }
 }
