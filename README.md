@@ -41,6 +41,9 @@ recomendaMusic/
 * **Entities:**
 
   * `IMediaItem`, `Track`, `Playlist`
+* **DTOs:**
+
+  * `TrackDto`, `PlaylistDto`
 * **Interfaces:**
 
   * `IRecommendationEngine`, `IRecommendationStrategy`,`IPlaylistRepository`
@@ -49,13 +52,16 @@ recomendaMusic/
   * `RecommendationEngine` com injeção de estratégia de recomendação
 * **Design Pattern (Strategy):**
 
-  * `GenreRecommendationStrategy` como implementação inicial de recomendação
+  * `GenreRecommendationStrategy`,`RecentTracksRecommendationStrategy`,`PopularTracksRecommendationStrategy`
+* **Design Pattern (Factory):**
+
+  * `RecommendationStrategyFactory`— Responsável por criar e selecionar dinamicamente a estratégia de recomendação em tempo de execução.
 * **Controller:**
 
   * `RecommendationController` expõe o endpoint `/api/recommendation/recommend` para receber playlists e retornar recomendações
 * **Dependency Injection:**
 
-  * Configurado no `Program.cs` para injetar Engine e Strategy dinamicamente
+  * Configurado no `Program.cs` para injetar `IPlaylistRepository` como singleton e a `RecommendationStrategyFactory`, garantindo baixo acoplamento e código limpo
 
 ---
 
@@ -72,9 +78,9 @@ recomendaMusic/
 
 ### 📌 Médio Prazo
 
-* [ ] Adicionar camada **Infrastructure** com persistência usando Entity Framework + SQLite
+* [X] Adicionar **swagger** para testes e `documentação da api`
 * [ ] Criar projeto de **Testes Unitários** para `Domain.Tests` e `API.Tests`
-* [ ] Implementar o **Factory Pattern** para seleção dinâmica de estratégias via API.
+* [X] Implementar o **Factory Pattern** para seleção dinâmica de estratégias via API.
 
 ### 📌 Longo Prazo
 
@@ -109,6 +115,6 @@ recomendaMusic/
 
 ## ✅ Status Atual
 
->✅ API funcional com 3 estratégias de recomendação intercambiáveis.
->✅ Repositório em memória implementado para simulação de dados.
+>✅ API 100% funcional com seleção dinâmica de 3 estratégias de recomendação via parâmetro na URL.
+>✅ Repositório em memória implementado e funcional, simulando a persistência de dados.
 >✅ Estrutura pronta para evoluir com persistência real e testes.
