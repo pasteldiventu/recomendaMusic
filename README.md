@@ -79,13 +79,12 @@ recomendaMusic/
 ### 📌 Médio Prazo
 
 * [X] Adicionar **swagger** para testes e `documentação da api`
-* [ ] Criar projeto de **Testes Unitários** para `Domain.Tests` e `API.Tests`
 * [X] Implementar o **Factory Pattern** para seleção dinâmica de estratégias via API.
 
 ### 📌 Longo Prazo
 
-* [ ] Aplicar **Observer Pattern** para eventos (notificação em atualizações)
-* [ ] Aplicar **Singleton Pattern** para cache ou log global
+* [X] Aplicar **Observer Pattern** para eventos (notificação em atualizações)
+* [X] Aplicar **Singleton Pattern** para cache ou log global
 ---
 
 ## 🎁 Produto Final Esperado
@@ -115,6 +114,4 @@ recomendaMusic/
 
 ## ✅ Status Atual
 
->✅ API 100% funcional com seleção dinâmica de 3 estratégias de recomendação via parâmetro na URL.
->✅ Repositório em memória implementado e funcional, simulando a persistência de dados.
->✅ Estrutura pronta para evoluir com persistência real e testes.
+>✅ API 100% pronta!!

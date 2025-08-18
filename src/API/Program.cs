@@ -3,6 +3,8 @@ using Domain.Interfaces;
 using Domain.Services;
 using Domain.Patterns.Strategy;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
+using Infrastructure.Observers;
 using Domain.Patterns.Factory;
 using Domain.Enums; 
 
@@ -10,7 +12,10 @@ using Domain.Enums;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(); 
+builder.Services.AddSingleton<SimpleFileLogger>();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<PlaylistService>();
+builder.Services.AddScoped<IPlaylistObserver, PlaylistLoggerObserver>();
 builder.Services.AddSwaggerGen(options => {
     options.AddServer(new() { Url = "http://localhost:5038" });
     options.UseInlineDefinitionsForEnums();
